@@ -35,6 +35,9 @@ body {
 .text-outline-black {
   text-shadow: 1px 1px 0px rgba(0,0,0,1);
 }
+.text-outline-black2 {
+  text-shadow: 0.5px 0.5px 0px rgba(0,0,0,1);
+}
 ::selection {
   background-color: white;
   color: black;

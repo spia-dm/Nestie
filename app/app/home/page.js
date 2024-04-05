@@ -1,5 +1,5 @@
 import Link from 'next/link';
-const Landing = () => {
+const Home = () => {
   return (
     <div className="bg-[#B5C0D0] h-screen flex flex-col">
       <nav className="bg-[#3E3232] h-16 flex justify-end items-center px-4">
@@ -10,19 +10,11 @@ const Landing = () => {
           Get Started
         </Link>
       </nav>
-      <div className="flex flex-col justify-center items-center flex-1">
-        <h1 className="text-[#625757] text-outline-black text-7xl bg-[#CCD3CA] font-josefin_slab p-2 mb-8">
-          PropertEase
-        </h1>
-        <p className="text-[#625757] text-3xl font-josefin_slab mb-8 text-center font-extrabold">
-          Unlock Your Dream Home, One Tap Away.
-        </p>
-        <Link href="/signup" className="text-[#625757] bg-[#CCD3CA] p-2 active:bg-[#9CAFAA] hover:text-outline-black text-3xl font-josefin_slab font-extrabold transition-all duration-300 ease-in-out rounded-2xl border-[#625757] border-2">
-          Get Started
-        </Link>
+      <div>
+        <h2 className="font-josefin_slab text-center text-5xl text-[#B5C0D0]">PropertEase</h2>
       </div>
     </div>
   );
 };
 
-export default Landing;
+export default Home;
