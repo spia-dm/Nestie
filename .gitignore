@@ -1,0 +1,23 @@
+# Node.js files
+node_modules/
+
+# Next.js build directory
+.next/
+
+# IDE files
+.idea/
+.vscode/
+
+# Logs
+logs/
+*.log
+
+# Environment variables
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Next.js generated files
+out/
+.cache/
