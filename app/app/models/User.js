@@ -1,25 +1,11 @@
 import { Schema, model, models } from "mongoose";
-import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
 
-const userSchema = new Schema(
+const user_data = new Schema(
   {
-    name: String,
-    age:Number
+    name:String,
+    email:String,
+    image:String
   }
 );
 
-userSchema.methods.encryptPassword = async function () {
-  const salt = await bcrypt.genSalt(10);
-  this.password = await bcrypt.hash(this.password, salt);
-};
-
-userSchema.statics.comparePassword = async function (password, hash) {
-  return await bcrypt.compare(password, hash);
-};
-
-userSchema.methods.generateToken = function () {
-  return jwt.sign({ id: this._id }, process.env.JWT_SECRET);
-};
-
-export default models.User || model("User", userSchema);
+export default models.User || model("User", user_data);
