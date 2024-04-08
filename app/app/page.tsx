@@ -1,7 +1,5 @@
 "use client"
 import { signIn, signOut, useSession } from 'next-auth/react'
-import Image from 'next/image'
-import Gif from './giphy.gif'
 import axios from 'axios'
 import { NextRequest, NextResponse } from 'next/server';
 import {useState} from 'react'
@@ -17,7 +15,7 @@ const Landing = () => {
     if(session.status === "loading"){
       return (
         <div className="flex justify-center items-center h-screen">
-          <Image src={Gif} alt="loading" />
+          <img src="https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExaGM2dnBtOHhtOWZiaXhxY2htamJzdmRwbnU1NDlya2NvdXIwZTdydSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/CbZwu25CGwNw9awRNt/giphy.gif" alt="loading" />
         </div>
       )
     }

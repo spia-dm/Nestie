@@ -49,7 +49,11 @@ const Home = () => {
     return () => clearTimeout(timeoutId); 
   }, []);
   if (session.status === "loading") {
-    return <h2>loading ...</h2>
+    return (
+      <div className="flex justify-center items-center h-screen">
+          <img src="https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExaGM2dnBtOHhtOWZiaXhxY2htamJzdmRwbnU1NDlya2NvdXIwZTdydSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/CbZwu25CGwNw9awRNt/giphy.gif" alt="loading" />
+        </div>
+    )
   }
   if (session.status === "unauthenticated") {
     router.push('/')

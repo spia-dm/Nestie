@@ -28,7 +28,7 @@
     ".next/types/**/*.ts",
     "**/*.ts",
     "**/*.tsx"
-, "app/api/db/route.tsx", "app/home/page.tsx", "app/page.js", "app/utils/mongoose.tsx"  ],
+, "app/api/db/route.tsx", "app/home/page.tsx", "app/page.tsx", "app/utils/mongoose.tsx"  ],
   "exclude": [
     "node_modules"
   ]
