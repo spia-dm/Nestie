@@ -18,12 +18,7 @@
 
 body {
   color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  background-color: #B5C0D0;
 }
 
 @layer utilities {
@@ -41,4 +36,30 @@ body {
 ::selection {
   background-color: white;
   color: black;
+}
+::-webkit-scrollbar {
+  width: 0.5vw;
+}
+::-webkit-scrollbar-track {
+  background-color: #B5C0D0;
+}
+
+::-webkit-scrollbar-track:hover {
+  background-color: #B5C0D0;
+}
+
+::-webkit-scrollbar-track:active {
+  background-color: #B5C0D0;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #3E3232;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #3E3232;
+}
+
+::-webkit-scrollbar-thumb:active {
+  background-color: #3E3232;
 }
