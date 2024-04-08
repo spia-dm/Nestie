@@ -4,6 +4,7 @@ import { useState ,useEffect} from 'react'
 import axios from 'axios'
 import {useRouter} from 'next/navigation'
 import '../globals.css'
+import Image from 'next/image'
 
 const Home = () => {
   const session = useSession()
@@ -93,8 +94,11 @@ const Home = () => {
           <h2 className="font-josefin_slab text-5xl text-[#B5C0D0] underline text-outline-black2 mt-2 ">PropertEase</h2>
         </div>
         <div className="flex justify-end">
-          <button onClick={show_profile_box}><svg className="h-12 mr-4 -mt-12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M4 6H20M4 12H20M4 18H20" stroke="#B5C0D0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg></button>
-        </div>
+  <button onClick={show_profile_box} className="scale-50 -mt-20 pt-1">
+  <img className="rounded-full border-[#B5C0D0] border-4" src={session.data.user.image} alt="avatar"/>
+  </button>
+</div>
+
       </div>
       <div className="flex justify-center">
         <input className="border-[#3E3232] border-b-4 bg-transparent -mt-4 text-4xl font-josefin_slab text-center w-7/12 mt-16 placeholder:text-gray-500 placeholder:text-4xl placeholder:text-center text-[#3E3232] outline-none" type="text" placeholder={searchPrompt} value={search_value} onChange={(e)=>{set_search_value(e.target.value)}}></input>
@@ -102,7 +106,7 @@ const Home = () => {
       </div>
       <div className="w-6/12 top-16 fixed left-[87vw]">
       {profile_box_visible && (
-        <div className="border-[#3E3232] rounded-xl bg-[#CCD3CA] border-2 h-48 w-3/12 text-[#3E3232] text-center font-josefin_slab text-2xl mr-1 z-10 flex flex-col">
+        <div className="border-[#3E3232] rounded-xl bg-[#CCD3CA] bg-opacity-30 border-2 h-48 w-3/12 text-[#3E3232] text-center font-josefin_slab text-2xl mr-1 z-10 flex flex-col">
         <button className="mt-8" onClick={() => router.push('/profile')}>Profile</button>
         <button className="mt-8" onClick={handleSignOut}>Sign Out</button>
       </div>

@@ -23,7 +23,8 @@ const Landing = () => {
       const user_data={
         name:session.data.user.name,
         email:session.data.user.email,
-        image:session.data.user.image
+        image:session.data.user.image,
+        secret:""
       }
       
       

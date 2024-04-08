@@ -4,7 +4,8 @@ const user_data = new Schema(
   {
     name:String,
     email:String,
-    image:String
+    image:String,
+    secret:String
   }
 );
 

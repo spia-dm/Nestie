@@ -1,45 +1,68 @@
 "use client"
-import {useState} from 'react'
+import { useState } from 'react'
 import { signIn, signOut, useSession } from 'next-auth/react'
-import {useRouter} from 'next/navigation'
-const Profile=()=>{
-    const session=useSession()
-    const router = useRouter()
-  const [profile_box_visible, set_profile_box_visible] = useState(false)
+import { useRouter } from 'next/navigation'
+
+const Profile = () => {
+  const session = useSession()
+  const router = useRouter()
+  const [profileBoxVisible, setProfileBoxVisible] = useState(false)
+
   if (session.status === "loading") {
     return (
       <div className="flex justify-center items-center h-screen">
-          <img src="https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExaGM2dnBtOHhtOWZiaXhxY2htamJzdmRwbnU1NDlya2NvdXIwZTdydSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/CbZwu25CGwNw9awRNt/giphy.gif" alt="loading" />
-        </div>
+        <img src="https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExaGM2dnBtOHhtOWZiaXhxY2htamJzdmRwbnU1NDlya2NvdXIwZTdydSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/CbZwu25CGwNw9awRNt/giphy.gif" alt="loading" />
+      </div>
     )
   }
+
   if (session.status === "unauthenticated") {
     router.push('/')
   }
-  const show_profile_box=()=>{
-    set_profile_box_visible(!profile_box_visible)
+
+  const show_profile_box= () => {
+    setProfileBoxVisible(!profileBoxVisible)
   }
+
   const handleSignOut = async () => {
     await signOut();
   };
-    return(
-        <div className="bg-[#B5C0D0] h-screen flex flex-col">
-        <div className="bg-[#3E3232] min-h-16 max-h-16">
+
+  return (
+    <div className="bg-[#B5C0D0] h-screen flex flex-col">
+      <div className="bg-[#3E3232] min-h-16 max-h-16">
         <div className="flex justify-center flex-grow">
           <h2 className="font-josefin_slab text-5xl text-[#B5C0D0] underline text-outline-black2 mt-2 ">PropertEase</h2>
         </div>
         <div className="flex justify-end">
-          <button onClick={show_profile_box}><svg className="h-12 mr-4 -mt-12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M4 6H20M4 12H20M4 18H20" stroke="#B5C0D0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg></button>
+        <button onClick={show_profile_box} className="scale-50 -mt-20 pt-1">
+  <img className="rounded-full border-[#B5C0D0] border-4" src={session.data.user.image} alt="avatar"/>
+  </button>
         </div>
       </div>
-      <div className="w-6/12 top-16 fixed left-[87vw]">
-      {profile_box_visible && (
-        <div className="border-[#3E3232] rounded-xl bg-[#CCD3CA] border-2 h-24 w-3/12 text-[#3E3232] text-center font-josefin_slab text-2xl mr-1 z-10 flex flex-col">
-        <button className="mt-8" onClick={handleSignOut}>Sign Out</button>
-      </div>
+      {profileBoxVisible && (
+        <div className="fixed right-0 top-16">
+          <div className="border-[#3E3232] rounded-xl bg-[#CCD3CA] border-2 h-16 w-[10vw] text-[#3E3232] text-center font-josefin_slab text-2xl mr-1 z-10 flex flex-col">
+            <button className="mt-4" onClick={handleSignOut}>Sign Out</button>
+          </div>
+        </div>
       )}
+      <div className="grid grid-rows-2 grid-flow-col gap-4">
+
+      <div className="row-span-1 col-span-2 ... bg-[#F5E8DD] bg-opacity-30 border-[#3E3232] border-2 border-dashed rounded-xl mt-2 ml-2 hover:shadow-2xl hover:drop-shadow-2xl transition-all duration-300 ease-in-out">
+        <h2 className="font-josefin_slab text-3xl text-[#3E3232] text-center mt-2 underline">My Data</h2>
       </div>
-        </div>
-    )
+
+      <div className="row-span-1 col-span-2 ... bg-[#EED3D9] bg-opacity-30 border-[#3E3232] border-2 border-dashed rounded-xl ml-2 -mb-2 hover:shadow-2xl hover:drop-shadow-2xl transition-all duration-300 ease-in-out">
+      <h2 className="font-josefin_slab text-3xl text-[#3E3232] text-center mt-2 underline">Liked</h2>
+      </div>
+
+      <div className="row-span-3 ... bg-[#CCD3CA] bg-opacity-30 border-[#3E3232] border-2 h-[90vh] border-dashed rounded-xl mt-2 mb-2 mr-2 hover:shadow-2xl hover:drop-shadow-2xl transition-all duration-300 ease-in-out">
+      <h2 className="font-josefin_slab text-3xl text-[#3E3232] text-center mt-2 underline">Uploads</h2>
+      </div>
+</div>
+</div>
+  )
 }
+
 export default Profile
