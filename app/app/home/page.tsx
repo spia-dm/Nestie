@@ -12,28 +12,74 @@ const Home = () => {
   const [profile_box_visible, set_profile_box_visible] = useState(false)
   const [get_house,set_get_house]=useState(false)
   const [house_data,set_house_data]=useState([])
-  const promptList = [
-    "Beautiful Villa ...",
-    "Luxurious Apartment ...",
-    "Cozy Bungalow ...",
-    "Spacious Penthouse ...",
-    "Modern Villa ...",
-    "Elegant Row House ...",
-    "Luxury Apartment ...",
-    "Gorgeous Farmhouse ...",
-    "Stylish Duplex ...",
-    "Traditional Haveli ...",
-    "Charming Cottage ...",
-    "Rustic Log Cabin ...",
-    "Seaside Villa ...",
-    "Mountain Chalet ...",
-    "Urban Loft ...",
-    "Garden Villa ...",
-    "Contemporary Townhouse ...",
-    "Three-story Home ...",
-    "Ranch Style House ...",
-    "Tropical Villa ..."
-  ];
+  const houseTypes = [
+    "Luxurious Villa",
+    "Modern Apartment",
+    "Cozy House",
+    "Spacious Bungalow",
+    "Traditional House",
+    "Elegant Villa",
+    "Charming Cottage",
+    "Luxury Penthouse",
+    "Seaside Villa",
+    "Modern Duplex",
+    "Contemporary Apartment",
+    "Rustic Farmhouse",
+    "Colonial Villa",
+    "Classic Bungalow",
+    "Contemporary Townhouse",
+    "Grand Mansion",
+    "Modern Apartment",
+    "Eco-Friendly House",
+    "Riverside Villa",
+    "Majestic Palace",
+    "Modern Duplex",
+    "Colonial Mansion",
+    "Serenity Cottage",
+    "Chic Penthouse",
+    "Luxurious Villa",
+    "Modern Apartment",
+    "Serene House",
+    "Luxury Penthouse",
+    "Cozy Cottage",
+    "Spacious Bungalow",
+    "3BHK Flat",
+    "2BHK Flat",
+    "1BHK Flat",
+    "4BHK Flat",
+];
+
+const cities = [
+  "Mumbai", "Delhi", "Bangalore", "Hyderabad", "Ahmedabad",
+  "Chennai", "Kolkata", "Surat", "Pune", "Jaipur",
+  "Lucknow", "Kanpur", "Nagpur", "Visakhapatnam", "Indore",
+  "Thane", "Bhopal", "Patna", "Vadodara", "Ghaziabad",
+  "Ludhiana", "Agra", "Nashik", "Faridabad", "Meerut",
+  "Rajkot", "Kalyan-Dombivali", "Vasai-Virar", "Varanasi", "Srinagar",
+  "Aurangabad", "Dhanbad", "Amritsar", "Navi Mumbai", "Allahabad",
+  "Howrah", "Ranchi", "Gwalior", "Jabalpur", "Coimbatore",
+  "Vijayawada", "Jodhpur", "Madurai", "Raipur", "Kota",
+  "Guwahati", "Chandigarh", "Solapur", "Hubli-Dharwad", "Bareilly",
+  "Moradabad", "Mysore", "Gurgaon", "Aligarh", "Jalandhar",
+  "Tiruchirappalli", "Bhubaneswar", "Salem", "Mira-Bhayandar", "Warangal",
+  "Guntur", "Bhiwandi", "Saharanpur", "Gorakhpur", "Bikaner",
+  "Amravati", "Noida", "Jamshedpur", "Bhilai", "Cuttack",
+  "Firozabad", "Kochi", "Nellore", "Bhavnagar", "Dehradun",
+  "Durgapur", "Asansol", "Rourkela", "Nanded", "Kolhapur",
+  "Ajmer", "Akola", "Gulbarga", "Jamnagar", "Ujjain",
+  "Loni", "Siliguri", "Jhansi", "Ulhasnagar", "Jammu"
+];
+
+const promptList = [];
+
+for (let i = 0; i < 50; i++) {
+    const houseType = houseTypes[Math.floor(Math.random() * houseTypes.length)];
+    const city = cities[Math.floor(Math.random() * cities.length)];
+    promptList.push(`${houseType} in ${city}`);
+}
+
+console.log(promptList);
+
 
   const [searchPrompt, setSearchPrompt] = useState("");
   const [search_value,set_search_value]=useState("")
@@ -82,7 +128,8 @@ const Home = () => {
   const send_search=async()=>{
     try{
     const response=await axios.post("http://localhost:8000/api/search",{data:house_data,search:search_value})
-    console.log(response.data)
+    set_house_data(response.data)
+    console.log(house_data)
     }
     catch(e){
 

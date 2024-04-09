@@ -9,7 +9,7 @@ const house_data = new Schema(
     location: String,
     size: String,
     likes: Number,
-    Comments: Array,
+    comments: Array,
     uploaded_by: String,
     description: String
   }    
