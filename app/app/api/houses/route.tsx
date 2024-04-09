@@ -5,9 +5,8 @@ import { NextRequest, NextResponse } from 'next/server';
 export async function GET() {
   try {
     await dbConnect();
-    const find_user = await House.find({})
-    console.log(find_user)
-    return NextResponse.json(find_user)
+    const find_house = await House.find({})
+    return NextResponse.json(find_house)
   }
   catch(e){
     console.log(e)

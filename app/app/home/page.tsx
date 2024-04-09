@@ -81,7 +81,8 @@ const Home = () => {
   };
   const send_search=async()=>{
     try{
-    const response=await axios.post("/api/search",{search:search_value})
+    const response=await axios.post("http://localhost:8000/api/search",{data:house_data,search:search_value})
+    console.log(response.data)
     }
     catch(e){
 
