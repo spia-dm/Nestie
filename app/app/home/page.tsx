@@ -8,94 +8,14 @@ import Image from 'next/image'
 
 const Home = () => {
   const session = useSession()
+  console.log(session.status)
   const router = useRouter()
   const [profile_box_visible, set_profile_box_visible] = useState(false)
   const [get_house,set_get_house]=useState(false)
   const [house_data,set_house_data]=useState([])
-  const houseTypes = [
-    "Luxurious Villa",
-    "Modern Apartment",
-    "Cozy House",
-    "Spacious Bungalow",
-    "Traditional House",
-    "Elegant Villa",
-    "Charming Cottage",
-    "Luxury Penthouse",
-    "Seaside Villa",
-    "Modern Duplex",
-    "Contemporary Apartment",
-    "Rustic Farmhouse",
-    "Colonial Villa",
-    "Classic Bungalow",
-    "Contemporary Townhouse",
-    "Grand Mansion",
-    "Modern Apartment",
-    "Eco-Friendly House",
-    "Riverside Villa",
-    "Majestic Palace",
-    "Modern Duplex",
-    "Colonial Mansion",
-    "Serenity Cottage",
-    "Chic Penthouse",
-    "Luxurious Villa",
-    "Modern Apartment",
-    "Serene House",
-    "Luxury Penthouse",
-    "Cozy Cottage",
-    "Spacious Bungalow",
-    "3BHK Flat",
-    "2BHK Flat",
-    "1BHK Flat",
-    "4BHK Flat",
-];
-
-const cities = [
-  "Mumbai", "Delhi", "Bangalore", "Hyderabad", "Ahmedabad",
-  "Chennai", "Kolkata", "Surat", "Pune", "Jaipur",
-  "Lucknow", "Kanpur", "Nagpur", "Visakhapatnam", "Indore",
-  "Thane", "Bhopal", "Patna", "Vadodara", "Ghaziabad",
-  "Ludhiana", "Agra", "Nashik", "Faridabad", "Meerut",
-  "Rajkot", "Kalyan-Dombivali", "Vasai-Virar", "Varanasi", "Srinagar",
-  "Aurangabad", "Dhanbad", "Amritsar", "Navi Mumbai", "Allahabad",
-  "Howrah", "Ranchi", "Gwalior", "Jabalpur", "Coimbatore",
-  "Vijayawada", "Jodhpur", "Madurai", "Raipur", "Kota",
-  "Guwahati", "Chandigarh", "Solapur", "Hubli-Dharwad", "Bareilly",
-  "Moradabad", "Mysore", "Gurgaon", "Aligarh", "Jalandhar",
-  "Tiruchirappalli", "Bhubaneswar", "Salem", "Mira-Bhayandar", "Warangal",
-  "Guntur", "Bhiwandi", "Saharanpur", "Gorakhpur", "Bikaner",
-  "Amravati", "Noida", "Jamshedpur", "Bhilai", "Cuttack",
-  "Firozabad", "Kochi", "Nellore", "Bhavnagar", "Dehradun",
-  "Durgapur", "Asansol", "Rourkela", "Nanded", "Kolhapur",
-  "Ajmer", "Akola", "Gulbarga", "Jamnagar", "Ujjain",
-  "Loni", "Siliguri", "Jhansi", "Ulhasnagar", "Jammu"
-];
-
-const promptList = [];
-
-for (let i = 0; i < 50; i++) {
-    const houseType = houseTypes[Math.floor(Math.random() * houseTypes.length)];
-    const city = cities[Math.floor(Math.random() * cities.length)];
-    promptList.push(`${houseType} in ${city}`);
-}
-
-console.log(promptList);
-
-
-  const [searchPrompt, setSearchPrompt] = useState("");
+  
   const [search_value,set_search_value]=useState("")
 
-  useEffect(() => {
-    let index = 0;
-
-    const changeSearchPrompt = () => {
-      setSearchPrompt(promptList[index]);
-      index = (index + 1) % promptList.length;
-      setTimeout(changeSearchPrompt, 3000);
-    };
-
-    const timeoutId = setTimeout(changeSearchPrompt, 0);
-    return () => clearTimeout(timeoutId); 
-  }, []);
   if (session.status === "loading") {
     return (
       <div className="flex justify-center items-center h-screen">
@@ -124,12 +44,12 @@ console.log(promptList);
   }
   const handleSignOut = async () => {
     await signOut();
+    router.push('/')
   };
   const send_search=async()=>{
     try{
     const response=await axios.post("http://localhost:8000/api/search",{data:house_data,search:search_value})
     set_house_data(response.data)
-    console.log(house_data)
     }
     catch(e){
 
@@ -149,7 +69,7 @@ console.log(promptList);
 
       </div>
       <div className="flex justify-center">
-        <input className="border-[#3E3232] border-b-4 bg-transparent -mt-4 text-4xl font-josefin_slab text-center w-7/12 mt-16 placeholder:text-gray-500 placeholder:text-4xl placeholder:text-center text-[#3E3232] outline-none" type="text" placeholder={searchPrompt} value={search_value} onChange={(e)=>{set_search_value(e.target.value)}}></input>
+        <input className="border-[#3E3232] border-b-4 bg-transparent -mt-4 text-4xl font-josefin_slab text-center w-7/12 mt-16 placeholder:text-gray-500 placeholder:text-4xl placeholder:text-center text-[#3E3232] outline-none" type="text" placeholder="Search ..." value={search_value} onChange={(e)=>{set_search_value(e.target.value)}}></input>
         <button onClick={send_search} className="text-3xl mt-20 p-2 border-2 rounded-br-xl rounded-tr-xl border-black w-1/12 bg-[#3E3232] flex justify-center"><svg className="h-9" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g id="Interface / Search_Magnifying_Glass"> <path id="Vector" d="M15 15L21 21M10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10C17 13.866 13.866 17 10 17Z" stroke="#B5C0D0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g> </g></svg></button>
       </div>
       <div className="w-6/12 top-16 fixed left-[87vw]">
