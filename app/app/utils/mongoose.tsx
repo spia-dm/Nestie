@@ -14,7 +14,7 @@ export async function dbConnect(): Promise<void> {
  }
 
  try {
-   const db = await connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/nextjs');
+   const db = await connect(process.env.MONGODB_URI);
    conn.isConnected = true;
 
    console.log('Mongodb connected to db');
