@@ -29,6 +29,11 @@ const Home = () => {
   const Get_House=async()=>{
     try{
       const response=await axios.get("/api/houses")
+      response.data.sort((a, b) => {
+        const idA = parseInt(a.id);
+        const idB = parseInt(b.id);
+        return idB - idA;
+    });
       set_house_data(response.data)
     }
     catch(e){
@@ -62,14 +67,18 @@ const Home = () => {
           <h2 className="font-josefin_slab text-5xl text-[#B5C0D0] underline text-outline-black2 mt-2 ">PropertEase</h2>
         </div>
         <div className="flex justify-end">
+  <button className="-mt-20 w-12" onClick={()=>{router.push("/upload-home")}}>
+    <img src="https://i.ibb.co/42D8xXF/home-add-svgrepo-com.png" alt="upload home"></img>
+  </button>
   <button onClick={show_profile_box} className="scale-50 -mt-20 pt-1">
-  <img className="rounded-full border-[#B5C0D0] border-4" src={session.data.user.image} alt="avatar"/>
+    <img className="rounded-full border-[#B5C0D0] border-4" src={session.data.user.image} alt="avatar"/>
   </button>
 </div>
 
+
       </div>
       <div className="flex justify-center">
-        <input className="border-[#3E3232] border-b-4 bg-transparent -mt-4 text-4xl font-josefin_slab text-center w-7/12 mt-16 placeholder:text-gray-500 placeholder:text-4xl placeholder:text-center text-[#3E3232] outline-none" type="text" placeholder="Search ..." value={search_value} onChange={(e)=>{set_search_value(e.target.value)}}></input>
+        <input className="border-[#3E3232] border-b-4 bg-transparent -mt-4 text-4xl font-josefin_slab text-center w-7/12 mt-16 placeholder:text-gray-500 placeholder:text-4xl placeholder:text-center text-[#3E3232] outline-none" type="text" placeholder="Search ..." required value={search_value} onChange={(e)=>{set_search_value(e.target.value)}}></input>
         <button onClick={send_search} className="text-3xl mt-20 p-2 border-2 rounded-br-xl rounded-tr-xl border-black w-1/12 bg-[#3E3232] flex justify-center"><svg className="h-9" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g id="Interface / Search_Magnifying_Glass"> <path id="Vector" d="M15 15L21 21M10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10C17 13.866 13.866 17 10 17Z" stroke="#B5C0D0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g> </g></svg></button>
       </div>
       <div className="w-6/12 top-16 fixed left-[87vw]">

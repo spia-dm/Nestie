@@ -240,7 +240,7 @@ house_types = [
     "Flat"
 ]
 data=[]
-for i in range(1000):
+for i in range(3):
     state = states[random.randint(0, len(states) - 1)]
     city_list = city[state]
     selected_city = city_list[random.randint(0, len(city_list) - 1)]
@@ -250,16 +250,17 @@ for i in range(1000):
     size = str(random.randint(1000, 10000)) + " sqft"
 
     d = {
-        "id": i + 1,
+        "id": str(i + 1),
         "house_url": house_url,
         "house_name": f"{adjective} {house_type} in {selected_city}",
         "price": price,
         "location":selected_city+", "+state,
         "size": size,
-        "likes": 0,
+        "likes": "0",
         "comments": [],
         "uploaded_by": "test",
-        "description": ""
+        "description": "",
+        "email":"srisiddhaarthp@gmail.com"
     }
     data.append(d)
 with open("dataset.json", "w") as json_file:

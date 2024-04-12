@@ -2,16 +2,17 @@ import { Schema, model, models } from "mongoose";
 
 const house_data = new Schema(
   {
-    id: Number,
+    id: String,
     house_name: String,
     house_url: String,
     price: String,
     location: String,
     size: String,
-    likes: Number,
+    likes: String,
     comments: Array,
     uploaded_by: String,
-    description: String
+    description: String,
+    email:String
   }    
 );
 
