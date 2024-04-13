@@ -2,7 +2,7 @@ import House from "../../models/House";
 import { dbConnect } from "../../utils/mongoose";
 import { NextRequest, NextResponse } from 'next/server';
 
-export async function POST(req:NextResponse,res:NextRequest) {
+export async function POST(req:NextRequest,res:NextResponse) {
   try {
     await dbConnect();
     const body = await req.json()

@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 import { signIn, signOut, useSession } from 'next-auth/react';
 
 export default function Show() {
+  
   const searchParams = useSearchParams();
   const search = searchParams.get('search');
   const [profileBoxVisible, setProfileBoxVisible] = useState(false);
