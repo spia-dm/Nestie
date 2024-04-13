@@ -21,3 +21,4 @@ logs/
 # Next.js generated files
 out/
 .cache/
+.vercel
