@@ -55,12 +55,12 @@ const Landing = () => {
           </div>
           <div className="flex flex-row justify-end -mt-[3%] mr-2">
             <div>
-              <button onClick={()=>signIn("google")} className="rounded-3xl text-3xl font-josefin_slab bg-[#625757] pl-3 p-2 pr-3 mr-2 text-[#CCD3CA] font-bold transition-all duration-300 ease-in-out active:bg-opacity-20">
+              <button onClick={()=>signIn("google")} className="rounded-3xl text-3xl font-josefin_slab bg-[#625757] pl-3 p-2 pr-3 mr-2 text-[#CCD3CA] font-bold transition-all duration-500 ease-in-out active:bg-opacity-20">
                 Log In
               </button>
             </div>
             <div>
-              <button onClick={()=>signIn("google")} className="rounded-3xl text-3xl font-josefin_slab bg-[#B5C0D0] pl-3 p-2 pr-3 text-[#625757] font-bold active:bg-[#9CAFAA] hover:text-outline-black transition-all duration-300 ease-in-out">
+              <button onClick={()=>signIn("google")} className="rounded-3xl text-3xl font-josefin_slab bg-[#B5C0D0] pl-3 p-2 pr-3 text-[#625757] font-bold active:bg-[#9CAFAA] hover:text-outline-black transition-all duration-500 ease-in-out">
                 Get Started
               </button>
             </div>
@@ -73,7 +73,7 @@ const Landing = () => {
           <p className="text-[#625757] text-3xl font-josefin_slab mb-8 text-center font-extrabold">
             Unlock Your Dream Home, One Tap Away.
           </p>
-          <button onClick={()=>signIn("google")} className="text-[#625757] bg-[#CCD3CA] p-2 active:bg-[#9CAFAA] hover:text-outline-black text-3xl font-josefin_slab font-extrabold transition-all duration-300 ease-in-out rounded-2xl border-[#625757] border-2">
+          <button onClick={()=>signIn("google")} className="text-[#625757] bg-[#CCD3CA] p-2 active:bg-[#9CAFAA] hover:text-outline-black text-3xl font-josefin_slab font-extrabold transition-all duration-500 ease-in-out rounded-2xl border-[#625757] border-2">
             Get Started
           </button>
         </div>

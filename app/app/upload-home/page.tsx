@@ -52,7 +52,7 @@ export default function Upload() {
 
         return (
             <div className="bg-[#B5C0D0] h-screen flex flex-col">
-                <div className="bg-[#3E3232] min-h-16 max-h-16">
+                <div className="bg-[#3E3232] min-h-16 max-h-16 fixed w-full">
                     <div className="flex justify-center flex-grow">
                         <h2 className="font-josefin_slab text-5xl text-[#B5C0D0] underline text-outline-black2 mt-2 ">PropertEase</h2>
                     </div>

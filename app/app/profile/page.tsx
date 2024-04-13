@@ -136,7 +136,7 @@ const Profile = () => {
         </div>
       )}
       <div className="grid grid-rows-2 grid-flow-col gap-4">
-        <div className="row-span-1 col-span-2 ... bg-[#F5E8DD] bg-opacity-30 border-[#3E3232] border-2 rounded-xl mt-2 ml-2 hover:shadow-2xl hover:drop-shadow-2xl transition-all duration-300 ease-in-out">
+        <div className="row-span-1 col-span-2 ... bg-[#F5E8DD] bg-opacity-30 border-[#3E3232] border-2 rounded-xl mt-2 ml-2 hover:shadow-2xl hover:drop-shadow-2xl transition-all duration-500 ease-in-out">
           <h2 className="font-josefin_slab text-3xl text-[#3E3232] text-center mt-2 underline">My Data</h2>
           <div className="flex flex-row items-center justify-center text-center">
             <img className="rounded-xl w-48 mt-12 border-[#3E3232] border-4" src={session.data.user.image} alt="avatar" />
@@ -149,14 +149,14 @@ const Profile = () => {
             </div>
           </div>
         </div>
-        <div className="row-span-1 col-span-2 ... bg-[#EED3D9] bg-opacity-30 border-[#3E3232] border-2 rounded-xl ml-2 -mb-2 hover:shadow-2xl hover:drop-shadow-2xl transition-all duration-300 ease-in-out">
+        <div className="row-span-1 col-span-2 ... bg-[#EED3D9] bg-opacity-30 border-[#3E3232] border-2 rounded-xl ml-2 -mb-2 hover:shadow-2xl hover:drop-shadow-2xl transition-all duration-500 ease-in-out">
           <h2 className="font-josefin_slab text-3xl text-[#3E3232] text-center mt-2 underline">Liked</h2>
         </div>
-        <div className="row-span-3 ... bg-[#CCD3CA] bg-opacity-30 border-[#3E3232] border-2 h-[90vh] rounded-xl mt-2 mb-2 mr-2 hover:shadow-2xl hover:drop-shadow-2xl transition-all duration-300 ease-in-out max-h-2/4 overflow-y-auto">
+        <div className="row-span-3 ... bg-[#CCD3CA] bg-opacity-30 border-[#3E3232] border-2 h-[90vh] rounded-xl mt-2 mb-2 mr-2 hover:shadow-2xl hover:drop-shadow-2xl transition-all duration-500 ease-in-out max-h-2/4 overflow-y-auto">
           <h2 className="font-josefin_slab text-3xl text-[#3E3232] text-center mt-2 underline">Uploads</h2>
           {user_uploads.map((number, index) => (
     <div className="flex flex-col items-center mt-8">
-    <div key={index} className="border-[#3E3232] bg-[#CCD3CA] bg-opacity-20 border-2 h-48 max-w-[35vw] rounded-xl hover:shadow-2xl hover:drop-shadow-2xl transition-all duration-300 ease-in-out flex flex-row">
+    <div key={index} className="border-[#3E3232] bg-[#CCD3CA] bg-opacity-20 border-2 h-48 max-w-[35vw] rounded-xl hover:shadow-2xl hover:drop-shadow-2xl transition-all duration-500 ease-in-out flex flex-row">
       <div>
         <img src={number.house_url} className="h-full rounded-bl-lg rounded-tl-lg border-[#3E3232] border-r-2" alt="house image"/>
       </div>
