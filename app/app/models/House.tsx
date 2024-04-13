@@ -8,7 +8,7 @@ const house_data = new Schema(
     price: String,
     location: String,
     size: String,
-    likes: String,
+    likes: Array,
     comments: Array,
     uploaded_by: String,
     description: String,

@@ -1,4 +1,5 @@
 "use client"
+import '../globals.css'
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { signIn, signOut, useSession } from 'next-auth/react';
