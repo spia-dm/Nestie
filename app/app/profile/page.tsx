@@ -18,6 +18,8 @@ const Profile = () => {
   const [verify_tfa, set_verify_tfa] = useState("");
   const [secret, set_secret] = useState("");
   const [user_uploads,set_user_uploads]=useState([])
+  const [notif_visible,set_notif_visible]=useState(false)
+  const [notifications,set_notifications]=useState([])
 
   useEffect(() => {
     const fetchData = async () => {
@@ -57,6 +59,7 @@ const Profile = () => {
 
   const showProfileBox = () => {
     setProfileBoxVisible(prevProfileBoxVisible => !prevProfileBoxVisible);
+    set_notif_visible(false)
   };
 
   const handleSignOut = async () => {
@@ -103,26 +106,55 @@ const Profile = () => {
       }
     }
   }
+  const get_notifications=async()=>{
+    try{
+      const response = await axios.post("/api/get-notif",{email: session.data.user.email})
+      //console.log(response.data)
+      set_notifications(response.data.notifications)
+    }
+    catch(e){
 
+    }
+  }
+  const show_notifications=()=>{
+    get_notifications()
+    set_notif_visible(!notif_visible)
+    setProfileBoxVisible(false)
+
+  }
   return (
     <div className="bg-[#B5C0D0] h-screen flex flex-col">
       <div className="bg-[#3E3232] min-h-16 max-h-16">
-        <div className="flex justify-center flex-grow">
-          <h2 className="font-josefin_slab text-5xl text-[#B5C0D0] underline text-outline-black2 mt-2 ">PropertEase</h2>
-        </div>
-        <div className="flex justify-end">
-          <button onClick={showProfileBox} className="scale-50 -mt-20 pt-1">
-            <img className="rounded-full border-[#B5C0D0] border-4" src={session.data.user.image} alt="avatar" />
+      <div className="flex justify-center flex-grow">
+          <h2 className="font-josefin_slab text-5xl text-[#B5C0D0] underline text-outline-black2 mt-2">PropertEase</h2>
+          </div>
+          <div className="flex justify-end mt-3">
+          <button className="-mt-20 w-8 mr-4" onClick={()=>{router.push("/upload-home")}}>
+          <img src="https://i.ibb.co/42D8xXF/home-add-svgrepo-com.png" alt="upload home"></img>
           </button>
-        </div>
-      </div>
+          <button className="-mt-20 w-8" onClick={show_notifications}><img src="https://i.ibb.co/G9nF3SV/bell2.png" alt="notifications"></img></button>
+          <button onClick={showProfileBox} className="w-12 h-12 -mt-16 mr-4 ml-4 rounded-full">
+          <img className="w-12 rounded-full border-[#B5C0D0] border-2" src={session.data.user.image} alt="avatar"/>
+          </button>
+          </div>
+          </div>
       {profileBoxVisible && (
         <div className="fixed right-0 top-16">
-          <div className="border-[#3E3232] rounded-xl bg-[#CCD3CA] border-2 h-16 w-[10vw] text-[#3E3232] text-center font-josefin_slab text-2xl mr-1 z-10 flex flex-col">
-            <button className="mt-4" onClick={handleSignOut}>Sign Out</button>
+          <div className="border-[#3E3232] rounded-xl bg-[#CCD3CA] border-2 h-28 w-[10vw] text-[#3E3232] text-center font-josefin_slab text-2xl mr-1 z-10 flex flex-col">
+          <button className="mt-4" onClick={()=>{router.push("/home")}}>Home</button>
+          <button className="mt-4" onClick={handleSignOut}>Sign Out</button>
           </div>
         </div>
       )}
+      {notif_visible && (
+  <div className="bg-[#CCD3CA] rounded-xl border-[#3E3232] border-2 h-2/5 max-w-[20vw] min-w-[20vw] overflow-y-auto text-[#3E3232] text-center font-josefin_slab text-2xl mt-16 right-0 z-10 mx-auto fixed flex flex-col">
+    {notifications.map((not, index) => (
+      <div key={index} className={`text-[#3E3232] border-[#3E3232] border-t font-josefin_slab flex items-center justify-center flex-row ${index === 0 ? 'rounded-t-l-lg' : ''}`}>
+        <p className="text-base pt-2">{not}</p>
+      </div>
+    ))}
+  </div>      
+)}
       {twoStepStatus === "https://i.ibb.co/BfRtfc5/on.png" && showTfa && (
         <div className="bg-[#F5E8DD] border-2 border-[#3E3232] border-dashed fixed w-7/12 h-3/5 z-10 font-josefin_slab left-1/2 transform -translate-x-1/2 -translate-y-1/2 top-1/2">
           <h1 className="text-[#3E3232] text-4xl underline text-center mt-4">Two-Step Authentication</h1>
@@ -137,7 +169,7 @@ const Profile = () => {
         </div>
       )}
       <div className="grid grid-rows-2 grid-flow-col gap-4">
-        <div className="row-span-1 col-span-2 ... bg-[#F5E8DD] bg-opacity-30 border-[#3E3232] border-2 rounded-xl mt-2 ml-2 hover:shadow-2xl hover:drop-shadow-2xl transition-all duration-500 ease-in-out">
+        <div className="row-span-1 col-span-2 ... bg-[#F5E8DD] bg-opacity-30 border-[#3E3232] border-2 rounded-xl mt-2 ml-2 hover:shadow-2xl transition-all duration-500 ease-in-out">
           <h2 className="font-josefin_slab text-3xl text-[#3E3232] text-center mt-2 underline">My Data</h2>
           <div className="flex flex-row items-center justify-center text-center">
             <img className="rounded-xl w-48 mt-12 border-[#3E3232] border-4" src={session.data.user.image} alt="avatar" />
@@ -150,14 +182,14 @@ const Profile = () => {
             </div>
           </div>
         </div>
-        <div className="row-span-1 col-span-2 ... bg-[#EED3D9] bg-opacity-30 border-[#3E3232] border-2 rounded-xl ml-2 -mb-2 hover:shadow-2xl hover:drop-shadow-2xl transition-all duration-500 ease-in-out">
+        <div className="row-span-1 col-span-2 ... bg-[#EED3D9] bg-opacity-30 border-[#3E3232] border-2 rounded-xl ml-2 -mb-2 hover:shadow-2xl transition-all duration-500 ease-in-out">
           <h2 className="font-josefin_slab text-3xl text-[#3E3232] text-center mt-2 underline">Liked</h2>
         </div>
-        <div className="row-span-3 ... bg-[#CCD3CA] bg-opacity-30 border-[#3E3232] border-2 h-[90vh] rounded-xl mt-2 mb-2 mr-2 hover:shadow-2xl hover:drop-shadow-2xl transition-all duration-500 ease-in-out max-h-2/4 overflow-y-auto">
+        <div className="row-span-3 ... bg-[#CCD3CA] bg-opacity-30 border-[#3E3232] border-2 h-[90vh] rounded-xl mt-2 mb-2 mr-2 hover:shadow-2xl transition-all duration-500 ease-in-out max-h-2/4 overflow-y-auto">
           <h2 className="font-josefin_slab text-3xl text-[#3E3232] text-center mt-2 underline">Uploads</h2>
           {user_uploads.map((number, index) => (
     <div className="flex flex-col items-center mt-8">
-    <div key={index} className="border-[#3E3232] bg-[#CCD3CA] bg-opacity-20 border-2 h-48 max-w-[35vw] rounded-xl hover:shadow-2xl hover:drop-shadow-2xl transition-all duration-500 ease-in-out flex flex-row">
+    <div key={index} className="border-[#3E3232] bg-[#CCD3CA] bg-opacity-20 border-2 h-48 max-w-[35vw] rounded-xl hover:shadow-2xl transition-all duration-500 ease-in-out flex flex-row">
       <div>
         <img src={number.house_url} className="h-full rounded-bl-lg rounded-tl-lg border-[#3E3232] border-r-2" alt="house image"/>
       </div>

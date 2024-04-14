@@ -5,7 +5,8 @@ const user_data = new Schema(
     name:String,
     email:String,
     image:String,
-    secret:String
+    secret:String,
+    notifications:Array
   }
 );
 

@@ -1,7 +1,6 @@
 "use client"
 import { signIn, signOut, useSession } from 'next-auth/react'
 import axios from 'axios'
-import { NextRequest, NextResponse } from 'next/server';
 import {useState} from 'react'
 import { useRouter } from 'next/navigation'
  
