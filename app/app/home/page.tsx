@@ -107,8 +107,10 @@ if(session.status==="authenticated"){
     }
   }
 
-  const location_search=()=>{
-    console.log(latitude+" "+longitude)
+  const location_search=async()=>{
+    const response =await axios.get(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${latitude}&longitude=${longitude}&localityLanguage=en`)
+    const response2=await axios.post("http://localhost:8000/api/search",{data:house_data,search:response.data.city+", "+response.data.localityInfo.administrative[1].name})
+    set_house_data(response2.data)
   }
   return (
     <div className="bg-[#B5C0D0] h-screen flex flex-col">
