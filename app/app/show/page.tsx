@@ -5,7 +5,7 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { signIn, signOut, useSession } from 'next-auth/react';
 import { Suspense } from 'react';
-import {useRouter} from 'next/navigation'
+import {useRouter,redirect} from 'next/navigation'
 
 function Search() {
   const searchParams = useSearchParams();
@@ -38,6 +38,9 @@ function ShowContent() {
   const [notif_visible,set_notif_visible]=useState(false)
   const [notifications,set_notifications]=useState([])
   useEffect(() => {
+    if(session.status=== 'unauthenticated'){
+      router.push('/')
+    }
     if (session.status === 'authenticated') {
       const fetchData = async () => {
         try {
@@ -90,9 +93,13 @@ function ShowContent() {
     }
   }
 
-  const handleSignOut = async () => {
+  const handleSignOut =async() => {
+    console.log("boku")
     await signOut();
+    router.push('/home')
   };
+  
+  
 
   const Liked = async () => {
     const response = await axios.post('/api/like', { id: id, email: session.data.user.email });
@@ -133,7 +140,7 @@ function ShowContent() {
           </button>
           <button className="-mt-20 w-8" onClick={show_notifications}><img src="https://i.ibb.co/G9nF3SV/bell2.png" alt="notifications"></img></button>
           <button onClick={showProfileBox} className="w-12 h-12 -mt-16 mr-4 ml-4 rounded-full">
-          <img className="w-12 rounded-full border-[#B5C0D0] border-2" src={session.data.user.image} alt="avatar"/>
+          <img className="w-12 rounded-full border-[#B5C0D0] border-2" src={image} alt="avatar"/>
           </button>
           </div>
           </div>

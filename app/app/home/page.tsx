@@ -29,7 +29,7 @@ export default function Home() {
   if (session.status === "unauthenticated") {
     router.push('/')
   }
-
+if(session.status==="authenticated"){
     const getLocation = () => {
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
@@ -76,6 +76,10 @@ export default function Home() {
     router.push('/')
   };
   const send_search=async()=>{
+    if (!search_value.trim()) {
+      alert('Comment cannot be empty');
+      return;
+    }
     try{
     const response=await axios.post("http://localhost:8000/api/search",{data:house_data,search:search_value})
     set_house_data(response.data)
@@ -106,7 +110,6 @@ export default function Home() {
   const location_search=()=>{
     console.log(latitude+" "+longitude)
   }
-
   return (
     <div className="bg-[#B5C0D0] h-screen flex flex-col">
       <div className="bg-[#3E3232] min-h-16 max-h-16 fixed w-full">
@@ -126,7 +129,7 @@ export default function Home() {
 
       <div className="flex justify-center mt-16">
         <button onClick={location_search} className="text-3xl mt-20 p-2 border-2 rounded-bl-xl rounded-tl-xl border-black w-1/12 bg-[#3E3232] flex justify-center"><img className="h-9" src="https://i.ibb.co/72GJHPZ/gps.png" alt="filter"></img></button>
-        <input className="border-[#3E3232] border-b-4 bg-transparent text-3xl font-josefin_slab text-center w-6/12 mt-20 placeholder:text-gray-500 placeholder:text-4xl placeholder:text-center placeholder:text-3xl text-[#3E3232] outline-none" type="text" placeholder="Search ..." required value={search_value} onChange={(e)=>{set_search_value(e.target.value)}}></input>
+        <input className="border-[#3E3232] border-b-4 bg-transparent text-3xl font-josefin_slab text-center w-6/12 mt-20 placeholder:text-gray-500 placeholder:text-4xl placeholder:text-center placeholder:text-3xl text-[#3E3232] outline-none" type="text" placeholder="Search ..." value={search_value} onChange={(e)=>{set_search_value(e.target.value)}}></input>
         <button onClick={send_search} className="text-3xl mt-20 p-2 border-2 rounded-br-xl rounded-tr-xl border-black w-1/12 bg-[#3E3232] flex justify-center"><svg className="h-9" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" strokeWidth="0"></g><g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g><g id="SVGRepo_iconCarrier"> <g id="Interface / Search_Magnifying_Glass"> <path id="Vector" d="M15 15L21 21M10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10C17 13.866 13.866 17 10 17Z" stroke="#B5C0D0" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path> </g> </g></svg></button>
       </div>
       <div className="w-6/12 top-16 fixed left-[87vw]">
@@ -174,4 +177,4 @@ export default function Home() {
   
     </div>
   );
-};
+};}

@@ -57,6 +57,7 @@ const Profile = () => {
     router.push('/');
   }
 
+  if(session.status==="authenticated"){
   const showProfileBox = () => {
     setProfileBoxVisible(prevProfileBoxVisible => !prevProfileBoxVisible);
     set_notif_visible(false)
@@ -208,5 +209,5 @@ const Profile = () => {
     </div>
   );
 };
-
+}
 export default Profile;

@@ -2,8 +2,10 @@
 import { useState } from 'react';
 import { signIn, signOut, useSession } from 'next-auth/react';
 import axios from 'axios'
+import {useRouter}from 'next/navigation'
 
 export default function Upload() {
+    const router= useRouter()
     const session = useSession();
     const [profileBoxVisible, setProfileBoxVisible] = useState(false);
     const [houseUrl, setHouseUrl] = useState("");
@@ -20,7 +22,9 @@ export default function Upload() {
     const handleSignOut = async () => {
         await signOut();
     };
-
+    if(session.status==="unauthenticated"){
+        router.push('/')
+    }
     if (session.status === "authenticated") {
         const upload = async(e) => {
             e.preventDefault();
