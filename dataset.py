@@ -240,7 +240,7 @@ house_types = [
     "Flat"
 ]
 data=[]
-for i in range(3):
+for i in range(100):
     state = states[random.randint(0, len(states) - 1)]
     city_list = city[state]
     selected_city = city_list[random.randint(0, len(city_list) - 1)]

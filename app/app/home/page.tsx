@@ -4,9 +4,8 @@ import { useState ,useEffect} from 'react'
 import axios from 'axios'
 import {useRouter} from 'next/navigation'
 import '../globals.css'
-import Image from 'next/image'
 
-const Home = () => {
+export default function Home() {
   const session = useSession()
   console.log(session.status)
   const router = useRouter()
@@ -15,7 +14,9 @@ const Home = () => {
   const [house_data,set_house_data]=useState([])
   const [notif_visible,set_notif_visible]=useState(false)
   const [notifications,set_notifications]=useState([])
-  
+  const [latitude, setLatitude] = useState(null);
+  const [longitude, setLongitude] = useState(null);
+  const [error, setError] = useState(null);  
   const [search_value,set_search_value]=useState("")
 
   if (session.status === "loading") {
@@ -28,6 +29,24 @@ const Home = () => {
   if (session.status === "unauthenticated") {
     router.push('/')
   }
+
+    const getLocation = () => {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            setLatitude(position.coords.latitude);
+            setLongitude(position.coords.longitude);
+          },
+          (error) => {
+            setError(error.message);
+          }
+        );
+      } else {
+        setError("Geolocation is not supported by this browser.");
+      }
+    };
+
+
   const Get_House=async()=>{
     try{
       const response=await axios.get("/api/houses")
@@ -45,6 +64,7 @@ const Home = () => {
   }
   if(!get_house){
   Get_House()
+  getLocation();
   set_get_house(true)
   }
   const show_profile_box=()=>{
@@ -82,6 +102,11 @@ const Home = () => {
 
     }
   }
+
+  const location_search=()=>{
+    console.log(latitude+" "+longitude)
+  }
+
   return (
     <div className="bg-[#B5C0D0] h-screen flex flex-col">
       <div className="bg-[#3E3232] min-h-16 max-h-16 fixed w-full">
@@ -100,7 +125,7 @@ const Home = () => {
           </div>
 
       <div className="flex justify-center mt-16">
-        <button className="text-3xl mt-20 p-2 border-2 rounded-bl-xl rounded-tl-xl border-black w-1/12 bg-[#3E3232] flex justify-center"><img className="h-9" src="https://i.ibb.co/9bLTcCJ/filter.png" alt="filter"></img></button>
+        <button onClick={location_search} className="text-3xl mt-20 p-2 border-2 rounded-bl-xl rounded-tl-xl border-black w-1/12 bg-[#3E3232] flex justify-center"><img className="h-9" src="https://i.ibb.co/72GJHPZ/gps.png" alt="filter"></img></button>
         <input className="border-[#3E3232] border-b-4 bg-transparent text-3xl font-josefin_slab text-center w-6/12 mt-20 placeholder:text-gray-500 placeholder:text-4xl placeholder:text-center placeholder:text-3xl text-[#3E3232] outline-none" type="text" placeholder="Search ..." required value={search_value} onChange={(e)=>{set_search_value(e.target.value)}}></input>
         <button onClick={send_search} className="text-3xl mt-20 p-2 border-2 rounded-br-xl rounded-tr-xl border-black w-1/12 bg-[#3E3232] flex justify-center"><svg className="h-9" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" strokeWidth="0"></g><g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g><g id="SVGRepo_iconCarrier"> <g id="Interface / Search_Magnifying_Glass"> <path id="Vector" d="M15 15L21 21M10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10C17 13.866 13.866 17 10 17Z" stroke="#B5C0D0" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path> </g> </g></svg></button>
       </div>
@@ -123,30 +148,30 @@ const Home = () => {
     ))}
   </div>      
 )}
-      
-  {house_data.map((number, index) => (
-    <div className={`flex flex-col items-center ${index === 0 ? 'mt-20' : 'mt-8'}`}>
-      <button onClick={() => { router.push(`/show?search=${number.id}`) }}>
-    <div key={index} className="border-[#3E3232] bg-[#CCD3CA] w-[66.5vw] bg-opacity-20 border-2 h-[50vh] mt-8 mb-8 rounded-xl hover:shadow-2xl transition-all duration-500 ease-in-out flex flex-row">
-      <div>
-        <img src={number.house_url} className="h-full rounded-bl-lg rounded-tl-lg border-[#3E3232] border-r-2" alt="house image"/>
+
+
+{house_data.map((number, index) => (
+  <div className={`flex flex-col items-center ${index === 0 ? 'mt-20' : 'mt-8'}`} key={index}>
+    <button onClick={() => { router.push(`/show?search=${number.id}`) }}>
+      <div className="border-[#3E3232] bg-[#CCD3CA] w-[66.5vw] bg-opacity-20 border-2 h-[50vh] mt-8 mb-8 rounded-xl hover:shadow-2xl transition-all duration-500 ease-in-out flex flex-row">
+        <div>
+          <img src={number.house_url} className="h-full rounded-bl-lg rounded-tl-lg border-[#3E3232] border-r-2" alt="house image"/>
+        </div>
+        <div className="flex flex-col justify-center w-4/12 bg-[#3E3232] text-white text-center rounded-tr-lg rounded-br-lg">
+          <h2 className="font-josefin_slab text-2xl text-[#B5C0D0]" key={number.house_name}>{number.house_name}</h2>
+          <h2 className="font-josefin_slab text-2xl mt-8 text-[#B5C0D0]">{number.price}</h2>
+          <h2 className="font-josefin_slab text-2xl mt-8 text-[#B5C0D0]">{number.location}</h2>
+          <h2 className="font-josefin_slab text-2xl mt-8 text-[#B5C0D0]">{number.size}</h2>
+          <h2 className="font-josefin_slab text-2xl mt-8 text-[#B5C0D0]">{number.likes.length} &#9829;</h2>
+          <h2 className="font-josefin_slab text-lg mt-8 text-[#B5C0D0]">Uploaded by - {number.uploaded_by}</h2>
+        </div>
       </div>
-      <div className="flex flex-col justify-center w-4/12 bg-[#3E3232] text-white text-center rounded-tr-lg rounded-br-lg">
-        <h2 className="font-josefin_slab text-2xl text-[#B5C0D0]">{number.house_name}</h2>
-        <h2 className="font-josefin_slab text-2xl mt-8 text-[#B5C0D0]">{number.price}</h2>
-        <h2 className="font-josefin_slab text-2xl mt-8 text-[#B5C0D0]">{number.location}</h2>
-        <h2 className="font-josefin_slab text-2xl mt-8 text-[#B5C0D0]">{number.size}</h2>
-        <h2 className="font-josefin_slab text-2xl mt-8 text-[#B5C0D0]">{number.likes.length} &#9829;</h2>
-        <h2 className="font-josefin_slab text-lg mt-8 text-[#B5C0D0]">Uploaded by - {number.uploaded_by}</h2>
-      </div>
-    </div>
     </button>
-    </div>
-  ))}
+  </div>
+))}
+
 
   
     </div>
   );
 };
-
-export default Home;
