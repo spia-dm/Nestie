@@ -116,7 +116,7 @@ if(session.status==="authenticated"){
     <div className="bg-[#B5C0D0] h-screen flex flex-col">
       <div className="bg-[#3E3232] min-h-16 max-h-16 fixed w-full">
       <div className="flex justify-center flex-grow">
-          <h2 className="font-josefin_slab text-5xl text-[#B5C0D0] underline text-outline-black2 mt-2">PropertEase</h2>
+          <h2 className="font-josefin_slab text-5xl text-[#B5C0D0] underline text-outline-black2 mt-2">Nestie</h2>
           </div>
           <div className="flex justify-end mt-3">
           <button className="-mt-20 w-8 mr-4" onClick={()=>{router.push("/upload-home")}}>
